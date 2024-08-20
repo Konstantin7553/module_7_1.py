@@ -18,19 +18,22 @@ class Shop:
 
     def get_products(self):
         try:
-            with open(self.__file_name, 'r') as file:
-                return file.read()
+            file = open(self.__file_name, 'r')
+            products = file.read()
+            file.close()
+            return products
         except FileNotFoundError:
             return ''
 
     def add(self, *products):
         current_products = self.get_products()
-        with open(self.__file_name, 'a') as file:
-            for product in products:
-                if str(product) not in current_products:
-                    file.write(str(product) + '\n')
-                else:
-                        print(f'Продукт {product} уже есть в магазине')
+        file = open(self.__file_name, 'a')
+        for product in products:
+            if str(product) not in current_products:
+                file.write(str(product) + '\n')
+            else:
+                print(f'Продукт {product} уже есть в магазине')
+        file.close()
 
 
 s1 = Shop()
